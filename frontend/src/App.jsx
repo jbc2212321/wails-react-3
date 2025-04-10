@@ -3,15 +3,14 @@ import './App.css'
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    UploadOutlined,
+    SettingOutlined,
     FileTextOutlined,
-    VideoCameraOutlined,
 } from '@ant-design/icons';
 import {Button, Layout, Menu, theme} from 'antd';
 import {BrowserRouter, Navigate, useNavigate, NavLink, Route, Routes} from "react-router-dom"
-import Blog, {AddBlogButton} from "./view/Blog.jsx";
-import Document from "./view/Document.jsx";
+import Blog from "./view/Blog.jsx";
 import DocumentEditor from "./view/DocumentEditor.jsx";
+import Setting from "./view/Setting.jsx";
 
 
 const {Header, Sider, Content} = Layout;
@@ -23,8 +22,8 @@ const App = () => {
     } = theme.useToken();
     const navigate = useNavigate()
 
-    const pushDocument = () => {
-        navigate(`/document`)
+    const pushSetting = () => {
+        navigate(`/setting`)
     }
     const pushBlog = () => {
         navigate(`/blog`)
@@ -52,13 +51,20 @@ const App = () => {
                 </Header>
 
                 <Layout style={{overflow: "auto", height: "100%" ,width:"100%"}}>
-                    <Sider trigger={null} collapsible collapsed={collapsed} style={{overflow: "auto", height: "100%"}}>
+                    <Sider trigger={null}
+                           collapsible
+                           collapsed={collapsed}
+                           collapsedWidth="0"
+                           width="100"
+                           style={{overflow: "auto", height: "100%"}}>
+
                         <div className="demo-logo-vertical"/>
                         <Menu
                             // onClick={}
                             style={{"overflow": "auto", height: "100%"}}
                             theme="light"
                             mode="inline"
+                            inlineIndent="10"
                             defaultSelectedKeys={['1']}
                             items={[
                                 {
@@ -67,11 +73,12 @@ const App = () => {
                                     label: '博客',
                                     onClick: () => pushBlog()
                                 },
-                                // {
-                                //     key: '2',
-                                //     icon: <VideoCameraOutlined/>,
-                                //     label: 'nav 2',
-                                // },
+                                {
+                                    key: '2',
+                                    icon: <SettingOutlined />,
+                                    label: '设置',
+                                    onClick: () => pushSetting()
+                                },
                                 // {
                                 //     key: '3',
                                 //     icon: <UploadOutlined/>,
@@ -92,10 +99,11 @@ const App = () => {
                         }}
                     >
                         <Routes>
-
+                            <Route path="/" element={<Blog/>}/>
                             <Route path="/blog" element={<Blog/>}/>
                             <Route path="/document" element={<Document/>}/>
                             <Route path="/document-editor" element={<DocumentEditor/>}/>
+                            <Route path="/setting" element={<Setting/>}/>
                         </Routes>
                     </Content>
                 </Layout>

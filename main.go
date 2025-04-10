@@ -3,11 +3,13 @@ package main
 import (
 	"embed"
 	_ "embed"
-	"log"
 	"time"
-	"wails-react-3/blog"
 
+	"github.com/sirupsen/logrus"
 	"github.com/wailsapp/wails/v3/pkg/application"
+
+	"wails-react-3/blog"
+	"wails-react-3/resource"
 )
 
 // Wails uses Go's `embed` package to embed the frontend files into the binary.
@@ -22,7 +24,7 @@ var assets embed.FS
 // and starts a goroutine that emits a time-based event every second. It subsequently runs the application and
 // logs any error that might occur.
 func main() {
-
+	logrus.SetReportCaller(true)
 	// Create a new Wails application by providing the necessary options.
 	// Variables 'Name' and 'Description' are for application metadata.
 	// 'Assets' configures the asset server with the 'FS' variable pointing to the frontend files.
@@ -32,6 +34,7 @@ func main() {
 		Name:        "wails-react-3",
 		Description: "A demo of using raw HTML & CSS",
 		Services: []application.Service{
+			application.NewService(resource.NewResourceService()),
 			application.NewService(&GreetService{}),
 			application.NewService(blog.NewBlog()),
 		},
@@ -53,10 +56,12 @@ func main() {
 		Mac: application.MacWindow{
 			InvisibleTitleBarHeight: 50,
 			Backdrop:                application.MacBackdropTranslucent,
-			TitleBar:                application.MacTitleBarHiddenInset,
+			TitleBar:                application.MacTitleBarHidden,
 		},
 		BackgroundColour: application.NewRGB(27, 38, 54),
 		URL:              "/",
+		Height:           750,
+		Width:            950,
 	})
 
 	// Create a goroutine that emits an event containing the current time every second.
@@ -74,6 +79,6 @@ func main() {
 
 	// If an error occurred while running the application, log it and exit.
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 }
