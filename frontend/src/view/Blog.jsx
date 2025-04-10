@@ -14,7 +14,7 @@ export function AddBlogButton() {
     const navigate = useNavigate()
 
     const pushDocument = () => {
-        navigate(`/document`)
+        navigate(`/document-editor`)
     }
 
     return (
@@ -113,7 +113,6 @@ export default function Blog() {
                     </Card>
                 </Col>
 
-                {/*<BlogCard title={"Card title"} description={documentList[0].description}></BlogCard>*/}
 
             </Row>
             <AddBlogButton></AddBlogButton>

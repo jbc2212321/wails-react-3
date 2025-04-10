@@ -10,6 +10,7 @@ import {
 import ReactDOM from "react-dom/client";
 import Blog from "./view/Blog.jsx";
 import Document from "./view/Document.jsx";
+import DocumentEditor from "./view/DocumentEditor.jsx";
 
 const router = createBrowserRouter([
     // {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
         children: [
             {index: true, path: "blog", Component: Blog},
             {index: true, path: "document", Component: Document},
+            {index: true, path: "document-editor", Component: DocumentEditor},
         ],
     },
 ]);

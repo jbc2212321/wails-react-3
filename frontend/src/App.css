@@ -1,11 +1,16 @@
 #App {
     height: 100%;
     width: 100%;
+    overflow: auto;
 }
 
 #BasicLayout {
     height: 100%;
     width: 100%;
+    overflow: auto;
 }
 
 
+::-webkit-scrollbar {
+    display: none; /* 隐藏滚动条 */
+}
